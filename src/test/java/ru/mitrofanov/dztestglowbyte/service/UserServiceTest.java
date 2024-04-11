@@ -1,4 +1,4 @@
-package ru.mitrofanov.dztestglowbyte;
+package ru.mitrofanov.dztestglowbyte.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
