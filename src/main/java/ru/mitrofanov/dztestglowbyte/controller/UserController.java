@@ -18,18 +18,23 @@ public class UserController {
     }
 
     @GetMapping("/fillUsersTableFromFile")
-    public ResponseEntity<String> fillUsersTableFromFile(@RequestParam("file") MultipartFile file) {
+    public String fillUsersTableFromFile(@RequestParam("file") MultipartFile file) {
         try {
             userService.fillUsersTableFromFile(file);
-            return ResponseEntity.ok("Юзеры успешно добавлены из файла.");
+            return "Юзеры успешно добавлены из файла.";
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка: " + e.getMessage());
+            return "Произошла ошибка: " + e.getMessage();
         }
     }
 
     @PostMapping("/fillUsersTableFromJSON")
-    public ResponseEntity<String> fillUsersTableFromJSON(@RequestBody List<User> users) {
-        userService.fillUsersTableFromJSON(users);
-        return ResponseEntity.ok("Юзеры успешно добавлены из JSON.");
+    public String fillUsersTableFromJSON(@RequestBody List<User> users) {
+        try {
+            userService.fillUsersTableFromJSON(users);
+            return "Юзеры успешно добавлены из JSON.";
+        }
+        catch (Exception e) {
+            return "Произошла ошибка: " + e.getMessage();
+        }
     }
 }

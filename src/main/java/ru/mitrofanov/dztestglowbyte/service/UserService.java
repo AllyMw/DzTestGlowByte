@@ -7,6 +7,7 @@ import ru.mitrofanov.dztestglowbyte.repository.UserRepository;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,14 +23,16 @@ public class UserService {
     public void fillUsersTableFromFile(MultipartFile file) throws Exception {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
+            List<User> users = new ArrayList<>();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(";");
                 User user = new User();
                 user.setName(data[0]);
                 user.setAge(Integer.parseInt(data[1]));
                 user.setCity(data[2]);
-                userRepository.save(user);
+                users.add(user);
             }
+            userRepository.saveAll(users);
         }
     }
 
